@@ -1,0 +1,544 @@
+{
+    "lm": "gpt-3.5-turbo-1106",
+    "code_lm": "gpt-3.5-turbo-1106",
+    "summary": {
+        "name": "netflix_titles.csv",
+        "dataset_description": "Dataset containing information about titles available on Netflix",
+        "fields": [
+            {
+                "column": "show_id",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "s6078",
+                        "s59",
+                        "s2509"
+                    ],
+                    "num_unique_values": 4500,
+                    "semantic_type": "identifier",
+                    "description": "Unique identifier for each show"
+                }
+            },
+            {
+                "column": "type",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "TV Show",
+                        "Movie"
+                    ],
+                    "num_unique_values": 2,
+                    "semantic_type": "category",
+                    "description": "Type of the title (TV Show or Movie)"
+                }
+            },
+            {
+                "column": "title",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "Abdo Mota",
+                        "Naruto Shippûden the Movie: The Will of Fire"
+                    ],
+                    "num_unique_values": 4500,
+                    "semantic_type": "title",
+                    "description": "The title of the show or movie"
+                }
+            },
+            {
+                "column": "director",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "R. Ellis Frazier",
+                        "Jitender Pawar"
+                    ],
+                    "num_unique_values": 2585,
+                    "semantic_type": "person",
+                    "description": "Director of the show or movie"
+                }
+            },
+            {
+                "column": "cast",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "Su-jong Choi, Hee-Ra Ha, Jay Kim, Ji-hye Wang, Shin-il Kang",
+                        "Nicolas Cage, Michael Peña, Maggie Gyllenhaal, Maria Bello, Stephen Dorff, Jay Hernandez, Michael Shannon, Frank Whaley, Jon Bernthal, Morgan Flynn, Nick Damici, Viola Davis, William Mapother"
+                    ],
+                    "num_unique_values": 3984,
+                    "semantic_type": "person",
+                    "description": "Cast members of the show or movie"
+                }
+            },
+            {
+                "column": "country",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "Australia, Germany",
+                        "Canada"
+                    ],
+                    "num_unique_values": 453,
+                    "semantic_type": "country",
+                    "description": "Country or countries where the show or movie was produced"
+                }
+            },
+            {
+                "column": "date_added",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "June 5, 2020",
+                        "August 23, 2017"
+                    ],
+                    "num_unique_values": 1394,
+                    "semantic_type": "date",
+                    "description": "Date when the show or movie was added to Netflix"
+                }
+            },
+            {
+                "column": "release_year",
+                "properties": {
+                    "dtype": "number",
+                    "std": 8,
+                    "min": 1942,
+                    "max": 2021,
+                    "samples": [
+                        1962,
+                        1960
+                    ],
+                    "num_unique_values": 64,
+                    "semantic_type": "year",
+                    "description": "Year when the show or movie was released"
+                }
+            },
+            {
+                "column": "rating",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "TV-Y7-FV",
+                        "G"
+                    ],
+                    "num_unique_values": 14,
+                    "semantic_type": "category",
+                    "description": "Content rating of the show or movie"
+                }
+            },
+            {
+                "column": "duration",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "142 min",
+                        "121 min"
+                    ],
+                    "num_unique_values": 201,
+                    "semantic_type": "duration",
+                    "description": "Duration of the show or movie"
+                }
+            },
+            {
+                "column": "listed_in",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "Action & Adventure, Horror Movies, International Movies",
+                        "TV Action & Adventure, TV Comedies, TV Horror"
+                    ],
+                    "num_unique_values": 418,
+                    "semantic_type": "category",
+                    "description": "Genre or category of the show or movie"
+                }
+            },
+            {
+                "column": "description",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "Intrepid newspaper editor Harold Evans wages an ongoing battle to expose the truth about a dangerous drug and obtain compensation for its victims.",
+                        "Living under the same roof, a group of unabashed friends wrestle with everyday issues from financial woes and shared quarters to romantic misfires."
+                    ],
+                    "num_unique_values": 4489,
+                    "semantic_type": "text",
+                    "description": "Description of the show or movie"
+                }
+            }
+        ],
+        "field_names": [
+            "show_id",
+            "type",
+            "title",
+            "director",
+            "cast",
+            "country",
+            "date_added",
+            "release_year",
+            "rating",
+            "duration",
+            "listed_in",
+            "description"
+        ],
+        "file_name": "netflix_titles.csv"
+    },
+    "visualizations": [
+        {
+            "index": 0,
+            "question": "Which countries produce the most content available on Netflix?",
+            "visualization": "bar chart of top 10 countries",
+            "rationale": "By visualizing the top 10 countries that produce content available on Netflix, the film critic can identify the countries with the most content and recommend movies based on the current trends in production.",
+            "charts": {
+                "matplotlib": [
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    top_countries = data['country'].value_counts().head(10)\n    top_countries.plot(kind='bar', color='skyblue')\n    plt.title('Which countries produce the most content available on Netflix?', wrap=True)\n    plt.xlabel('Country')\n    plt.ylabel('Number of Titles')\n    plt.legend(['Number of Titles'])\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal0_matplotlib_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    top_countries = data['country'].value_counts().head(10)\n    top_countries.plot(kind='bar', color='skyblue')\n    plt.title('Which countries produce the most content available on Netflix?', wrap=True)\n    plt.xlabel('Country')\n    plt.ylabel('Number of Titles')\n    plt.legend(['Number of Titles'])\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal0_matplotlib_1.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    top_countries = data['country'].value_counts().head(10)\n    top_countries.plot(kind='bar', color='skyblue')\n    plt.title('Which countries produce the most content available on Netflix?', wrap=True)\n    plt.xlabel('Country')\n    plt.ylabel('Number of Titles')\n    plt.legend(['Number of Titles'])\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal0_matplotlib_2.png"
+                    }
+                ],
+                "seaborn": [
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef plot(data: pd.DataFrame):\n    top_countries = data['country'].value_counts().head(10)\n    sns.barplot(x=top_countries.values, y=top_countries.index, palette=\"viridis\")\n    plt.xlabel('Number of Titles')\n    plt.ylabel('Country')\n    plt.title('Which countries produce the most content available on Netflix?', wrap=True)\n    return plt\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal0_seaborn_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef plot(data: pd.DataFrame):\n    top_countries = data['country'].value_counts().head(10)\n    plt.figure(figsize=(12, 8))\n    sns.barplot(x=top_countries.values, y=top_countries.index, palette=\"viridis\")\n    plt.xlabel('Number of Titles')\n    plt.ylabel('Country')\n    plt.title('Which countries produce the most content available on Netflix?', wrap=True)\n    plt.legend(title='Top 10 Countries', loc='upper right')\n    return plt\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal0_seaborn_1.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef plot(data: pd.DataFrame):\n    top_countries = data['country'].value_counts().head(10)\n    top_countries = top_countries.reset_index()\n    top_countries.columns = ['Country', 'Count']\n    ax = sns.barplot(x='Country', y='Count', data=top_countries, palette='viridis')\n    ax.set(xlabel='Country', ylabel='Number of Titles')\n    ax.axhline(top_countries['Count'].mean(), color='r', linestyle='--', label='Mean Count')\n    ax.legend()\n    plt.xticks(rotation=45, ha='right')\n    return plt\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal0_seaborn_2.png"
+                    }
+                ],
+                "plotly": [
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    top_countries = data['country'].value_counts().nlargest(10).reset_index()\n    top_countries.columns = ['Country', 'Count']\n    fig = px.bar(top_countries, x='Country', y='Count', title='Top 10 Countries Producing Content on Netflix', labels={'Count': 'Number of Titles', 'Country': 'Country'}, color='Country')\n    fig.update_layout(xaxis_title='Country', yaxis_title='Number of Titles', legend_title='Country')\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal0_plotly_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    top_countries = data['country'].value_counts().nlargest(10).reset_index()\n    top_countries.columns = ['Country', 'Count']\n    fig = px.bar(top_countries, x='Country', y='Count', title='Top 10 Countries Producing Content on Netflix', labels={'Count': 'Number of Titles', 'Country': 'Country'})\n    fig.update_layout(xaxis_tickangle=-45)\n    fig.add_annotation(x='United States', y=top_countries['Count'].max(), text=f'Max: {top_countries[\"Count\"].max():.0f}', showarrow=True, arrowhead=1)\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal0_plotly_1.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\n\ndef plot(data):\n    top_countries = data['country'].value_counts().nlargest(10).reset_index()\n    top_countries.columns = ['country', 'count']\n    fig = px.bar(top_countries, x='country', y='count', title='Top 10 Countries Producing Content on Netflix')\n    fig.update_layout(xaxis_title='Country', yaxis_title='Number of Titles')\n    fig.update_traces(marker_color='blue')\n\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal0_plotly_2.png"
+                    }
+                ],
+                "ggplot": [
+                    {
+                        "status": true,
+                        "code": "import plotnine as p9\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    top_countries = data['country'].value_counts().nlargest(10)\n    top_countries = top_countries.reset_index()\n    top_countries.columns = ['country', 'count']\n\n    chart = (p9.ggplot(top_countries, p9.aes(x='country', y='count', fill='country')) +\n             p9.geom_bar(stat='identity') +\n             p9.theme(axis_text_x=p9.element_text(angle=45, hjust=1)) +\n             p9.labs(title='Top 10 Countries Producing Content on Netflix', x='Country', y='Count') +\n             p9.scale_fill_discrete(name='Country'))\n\n    return chart\n\nchart = plot(data)",
+                        "library": "ggplot",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal0_ggplot_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import plotnine as p9\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    top_countries = data['country'].value_counts().nlargest(10).reset_index()\n    top_countries.columns = ['country', 'count']\n    chart = (p9.ggplot(top_countries, p9.aes(x='country', y='count', fill='country')) +\n             p9.geom_bar(stat='identity') +\n             p9.theme(axis_text_x=p9.element_text(angle=90, hjust=1)) +\n             p9.ggtitle('Top 10 Countries Producing Content on Netflix') +\n             p9.xlab('Country') +\n             p9.ylab('Count') +\n             p9.theme(legend_position='none'))\n\n    return chart\n\nchart = plot(data)",
+                        "library": "ggplot",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal0_ggplot_1.png"
+                    }
+                ]
+            }
+        },
+        {
+            "index": 1,
+            "question": "What is the distribution of ratings for shows and movies on Netflix?",
+            "visualization": "bar chart of rating",
+            "rationale": "By visualizing the distribution of ratings, we can gain insights into the audience preferences and the types of content available on Netflix.",
+            "charts": {
+                "matplotlib": [
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    rating_counts = data['rating'].value_counts()\n    rating_counts.plot(kind='bar', color='skyblue')\n    plt.xlabel('Rating')\n    plt.ylabel('Count')\n    plt.axhline(y=rating_counts.mean(), color='r', linestyle='--', label=f'Mean: {rating_counts.mean():.2f}')\n    plt.legend()\n    plt.xticks(rotation=45)\n    plt.title('What is the distribution of ratings for shows and movies on Netflix?', wrap=True)\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal1_matplotlib_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    rating_counts = data['rating'].value_counts()\n    rating_counts.plot(kind='bar', color='skyblue')\n    plt.xlabel('Rating')\n    plt.ylabel('Count')\n    plt.axhline(y=rating_counts.mean(), color='r', linestyle='--', label=f'Mean: {rating_counts.mean():.2f}')\n    plt.legend()\n    plt.xticks(rotation=45)\n    plt.title('What is the distribution of ratings for shows and movies on Netflix?', wrap=True)\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal1_matplotlib_1.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    rating_counts = data['rating'].value_counts()\n    rating_counts.plot(kind='bar', color='skyblue')\n    plt.xlabel('Rating')\n    plt.ylabel('Count')\n    plt.title('What is the distribution of ratings for shows and movies on Netflix?')\n    plt.legend()\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal1_matplotlib_2.png"
+                    }
+                ],
+                "seaborn": [
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef plot(data: pd.DataFrame):\n    sns.set(style=\"whitegrid\")\n    plt.figure(figsize=(10, 6))\n    ax = sns.countplot(x='rating', data=data, palette=\"viridis\")\n    ax.set_xlabel('Rating')\n    ax.set_ylabel('Count')\n    ax.axhline(data['rating'].mode()[0], color='r', linestyle='--', label=f'Mode: {data[\"rating\"].mode()[0]}')\n    plt.legend()\n    plt.title('What is the distribution of ratings for shows and movies on Netflix?', wrap=True)\n    plt.xticks(rotation=45)\n    return plt;\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal1_seaborn_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef plot(data: pd.DataFrame):\n    plt.figure(figsize=(10, 6))\n    sns.countplot(data=data, x='rating', palette='viridis')\n    plt.title('What is the distribution of ratings for shows and movies on Netflix?', wrap=True)\n    plt.xlabel('Rating')\n    plt.ylabel('Count')\n    return plt\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal1_seaborn_1.png"
+                    }
+                ],
+                "plotly": [],
+                "ggplot": [
+                    {
+                        "status": true,
+                        "code": "import plotnine as p9\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    chart = (p9.ggplot(data, p9.aes(x='rating')) +\n             p9.geom_bar(fill='lightblue') +\n             p9.labs(title='Distribution of Ratings on Netflix', x='Rating', y='Count') +\n             p9.theme(axis_text_x=p9.element_text(angle=90, hjust=1)) +\n             p9.theme_minimal()\n            )\n    return chart\n\nchart = plot(data)",
+                        "library": "ggplot",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal1_ggplot_0.png"
+                    }
+                ]
+            }
+        },
+        {
+            "index": 2,
+            "question": "What is the distribution of release years for the movies and TV shows on Netflix?",
+            "visualization": "line chart of release_year",
+            "rationale": "This countplot will show the distribution of release years for the movies and TV shows on Netflix, enabling the film critic to identify trends in release years and recommend movies based on the current trends.",
+            "charts": {
+                "matplotlib": [
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    release_years = data['release_year'].value_counts().sort_index()\n    plt.plot(release_years.index, release_years.values, marker='o', linestyle='-')\n    plt.xlabel('Release Year')\n    plt.ylabel('Count')\n    plt.title('What is the distribution of release years for the movies and TV shows on Netflix?')\n    plt.legend(['Number of Titles'])\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal2_matplotlib_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\n# plan -\ndef plot(data: pd.DataFrame):\n    release_years = data['release_year'].value_counts().sort_index()\n    plt.plot(release_years.index, release_years.values, marker='o', linestyle='-')\n    plt.xlabel('Release Year')\n    plt.ylabel('Number of Titles')\n    plt.title('What is the distribution of release years for the movies and TV shows on Netflix?', wrap=True)\n    plt.legend(['Number of Titles'])\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal2_matplotlib_1.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\n# plan -\ndef plot(data: pd.DataFrame):\n    release_years = data['release_year']\n    plt.plot(release_years.value_counts().sort_index().index, release_years.value_counts().sort_index().values, marker='o', linestyle='-')\n    plt.xlabel('Release Year')\n    plt.ylabel('Count')\n    plt.title('What is the distribution of release years for the movies and TV shows on Netflix?', wrap=True)\n    plt.legend(['Release Years'])\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal2_matplotlib_2.png"
+                    }
+                ],
+                "seaborn": [],
+                "plotly": [
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    fig = px.histogram(data, x='release_year', title='Distribution of Release Years on Netflix')\n    fig.update_layout(xaxis_title='Release Year', yaxis_title='Count')\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal2_plotly_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\n\ndef plot(data):\n    fig = px.line(data, x='release_year', title='Distribution of Release Years for Movies and TV Shows on Netflix')\n    fig.update_layout(xaxis_title='Release Year', yaxis_title='Count')\n    fig.add_shape(type=\"line\", x0=data['release_year'].mean(), y0=0, x1=data['release_year'].mean(), y1=data['release_year'].value_counts().max(), line=dict(color=\"MediumPurple\", width=2, dash=\"dashdot\"), name=f'Mean: {data[\"release_year\"].mean():.2f}')\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal2_plotly_1.png"
+                    }
+                ],
+                "ggplot": [
+                    {
+                        "status": true,
+                        "code": "import plotnine as p9\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    chart = (p9.ggplot(data, p9.aes(x='release_year')) +\n             p9.geom_bar(fill='lightblue') +\n             p9.labs(title='Distribution of Release Years on Netflix', x='Release Year', y='Count') +\n             p9.theme(axis_text_x=p9.element_text(angle=90, hjust=1))\n            )\n\n    return chart\n\nchart = plot(data)",
+                        "library": "ggplot",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal2_ggplot_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import plotnine as p9\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    chart = (\n        p9.ggplot(data, p9.aes(x='release_year')) +\n        p9.geom_bar(fill='lightblue') +\n        p9.theme(axis_text_x=p9.element_text(angle=90, hjust=1)) +\n        p9.labs(title='Distribution of Release Years on Netflix', x='Release Year', y='Count') +\n        p9.theme_minimal()\n    )\n\n    return chart\n\nchart = plot(data)",
+                        "library": "ggplot",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal2_ggplot_1.png"
+                    }
+                ]
+            }
+        },
+        {
+            "index": 3,
+            "question": "What is the relationship between genres and release year?",
+            "visualization": "scatter chart of top 10 listed_in genres and release_year",
+            "rationale": "This visualization will show the correlations between genres and release year of movies and TV shows available on Netflix. It will help the film critic identify which genres in which years are more popular",
+            "charts": {
+                "matplotlib": [
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    top_genres = data['listed_in'].value_counts().head(10).index\n    data_top_genres = data[data['listed_in'].isin(top_genres)]\n    data_top_genres['release_year'] = pd.to_datetime(data_top_genres['release_year'], format='%Y')\n    \n    for genre in top_genres:\n        genre_data = data_top_genres[data_top_genres['listed_in'] == genre]\n        plt.scatter(genre_data['release_year'], [genre]*len(genre_data), label=genre, alpha=0.6)\n\n    plt.xlabel('Release Year')\n    plt.ylabel('Genre')\n    plt.legend()\n    plt.title('What is the relationship between genres and release year?', wrap=True)\n    \n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal3_matplotlib_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    top_genres = data['listed_in'].value_counts().head(10).index\n    data_top_genres = data[data['listed_in'].isin(top_genres)]\n    genre_year_counts = data_top_genres.groupby(['listed_in', 'release_year']).size().unstack().T\n\n    genre_year_counts.plot(marker='o', figsize=(12, 8))\n    plt.xlabel('Release Year')\n    plt.ylabel('Count')\n    plt.title('What is the relationship between genres and release year?')\n    plt.legend(title='Genre', bbox_to_anchor=(1, 1))\n    return plt\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal3_matplotlib_1.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    top_genres = data['listed_in'].value_counts().head(10).index.tolist()\n    filtered_data = data[data['listed_in'].isin(top_genres)]\n    \n    plt.figure(figsize=(12, 8))\n    for genre in top_genres:\n        genre_data = filtered_data[filtered_data['listed_in'] == genre]\n        plt.scatter(genre_data['release_year'], genre_data['listed_in'], label=genre)\n\n    plt.xlabel('Release Year')\n    plt.ylabel('Genre')\n    plt.legend(title='Top Genres', bbox_to_anchor=(1.05, 1), loc='upper left')\n    plt.title('What is the relationship between genres and release year?', wrap=True)\n\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal3_matplotlib_2.png"
+                    }
+                ],
+                "seaborn": [
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef plot(data: pd.DataFrame):\n    top_genres = data['listed_in'].value_counts().head(10).index\n    data_top_genres = data[data['listed_in'].isin(top_genres)]\n    plt.figure(figsize=(12, 8))\n    sns.scatterplot(x='release_year', y='listed_in', data=data_top_genres, palette='Set2', alpha=0.6)\n    plt.title('What is the relationship between genres and release year?', wrap=True)\n    plt.legend(title='Genre')\n    return plt\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal3_seaborn_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef plot(data: pd.DataFrame):\n    top_genres = data['listed_in'].value_counts().nlargest(10).index\n    data_filtered = data[data['listed_in'].isin(top_genres)]\n    plt.figure(figsize=(12, 8))\n    sns.scatterplot(data=data_filtered, x='release_year', y='listed_in', marker='o', s=100)\n    plt.xlabel('Release Year')\n    plt.ylabel('Genre')\n    plt.title('What is the relationship between genres and release year?')\n    plt.legend(title='Genre', loc='center left', bbox_to_anchor=(1, 0.5))\n    return plt\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal3_seaborn_1.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef plot(data: pd.DataFrame):\n    top_genres = data['listed_in'].value_counts().nlargest(10).index\n    data_top_genres = data[data['listed_in'].isin(top_genres)]\n    plt.figure(figsize=(12, 8))\n    sns.scatterplot(x='release_year', y='listed_in', data=data_top_genres, palette='viridis')\n    plt.xlabel('Release Year')\n    plt.ylabel('Genre')\n    plt.title('What is the relationship between genres and release year?', wrap=True)\n    plt.legend(title='Genre')\n    return plt\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal3_seaborn_2.png"
+                    }
+                ],
+                "plotly": [
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\n\ndef plot(data):\n    top_genres = data['listed_in'].value_counts().nlargest(10).index.tolist()\n    data_top_genres = data[data['listed_in'].isin(top_genres)]\n    fig = px.scatter(data_top_genres, x='release_year', y='listed_in', color='listed_in', title='Relationship between Genres and Release Year', \n                     labels={'release_year': 'Release Year', 'listed_in': 'Genre'}, \n                     category_orders={'listed_in': top_genres})\n    fig.update_layout(legend_title='Genre')\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal3_plotly_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\n\ndef plot(data):\n    top_genres = data['listed_in'].value_counts().head(10).index.tolist()\n    data_top_genres = data[data['listed_in'].isin(top_genres)]\n    fig = px.scatter(data_top_genres, x='release_year', y='listed_in', color='listed_in', title='Top 10 Listed Genres by Release Year', \n                     labels={'release_year': 'Release Year', 'listed_in': 'Listed Genre'})\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal3_plotly_1.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\n\ndef plot(data):\n    top_genres = data['listed_in'].value_counts().head(10).index.tolist()\n    data_top_genres = data[data['listed_in'].isin(top_genres)]\n    fig = px.scatter(data_top_genres, x='release_year', y='listed_in', color='listed_in')\n    fig.update_layout(title='Relationship between Genres and Release Year', xaxis_title='Release Year', yaxis_title='Genre')\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal3_plotly_2.png"
+                    }
+                ],
+                "ggplot": [
+                    {
+                        "status": true,
+                        "code": "import plotnine as p9\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    top_genres = data['listed_in'].value_counts().nlargest(10).index.tolist()\n    filtered_data = data[data['listed_in'].isin(top_genres)]\n    chart = (p9.ggplot(filtered_data, p9.aes(x='release_year', fill='listed_in')) +\n             p9.geom_bar(position='dodge') +\n             p9.theme(axis_text_x=p9.element_text(angle=90, hjust=1)) +\n             p9.scale_fill_brewer(type='qual', palette='Set3') +\n             p9.labs(title='Top 10 Genres by Release Year', x='Release Year', y='Count') +\n             p9.theme(legend_position='top'))\n\n    return chart\n\nchart = plot(data)",
+                        "library": "ggplot",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal3_ggplot_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import plotnine as p9\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    top_genres = data['listed_in'].value_counts().nlargest(10).index.tolist()\n    filtered_data = data[data['listed_in'].isin(top_genres)]\n    \n    chart = (p9.ggplot(filtered_data, p9.aes(x='release_year', fill='listed_in')) +\n             p9.geom_bar() +\n             p9.theme(axis_text_x=p9.element_text(angle=90, hjust=1)) +\n             p9.scale_fill_brewer(type='qual', palette='Set3') +\n             p9.labs(title=\"Top 10 Listed Genres by Release Year\", x=\"Release Year\", y=\"Count\") +\n             p9.theme(legend_position='top')\n            )\n\n    return chart\n\nchart = plot(data)",
+                        "library": "ggplot",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal3_ggplot_1.png"
+                    }
+                ]
+            }
+        },
+        {
+            "index": 4,
+            "question": "What is the relationship between director and genres of movies and TV shows on Netflix?",
+            "visualization": "heatmap of directors and the listed_in genres, the colormap is decided by the counts of genres",
+            "rationale": "This heatmap will show the correlations between directors and genres of movies and TV shows available on Netflix., aiding the film critic identifying genre trends.",
+            "charts": {
+                "matplotlib": [
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\n# plan -\ndef plot(data: pd.DataFrame):\n    director_genre = data.groupby('director')['listed_in'].value_counts().unstack().fillna(0)\n    plt.figure(figsize=(12, 8))\n    plt.imshow(director_genre, aspect='auto', cmap='viridis')\n    plt.colorbar(label='Count of Genres')\n    plt.xlabel('Listed_in Genres')\n    plt.ylabel('Directors')\n    plt.xticks(ticks=range(len(director_genre.columns)), labels=director_genre.columns, rotation=90)\n    plt.yticks(ticks=range(len(director_genre.index)), labels=director_genre.index)\n    plt.axhline(y=10, color='red', linestyle='--', label='Threshold')\n    plt.legend(title='Genres')\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal4_matplotlib_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\n# plan - \ndef plot(data: pd.DataFrame):\n    director_genre = data.groupby('director')['listed_in'].value_counts().unstack().fillna(0)\n    plt.figure(figsize=(12, 8))\n    plt.imshow(director_genre, aspect='auto', cmap='viridis')\n    plt.colorbar(label='Number of Titles')\n    plt.xlabel('Listed_in Genre')\n    plt.ylabel('Director')\n    plt.title('What is the relationship between director and genres of movies and TV shows on Netflix?', wrap=True)\n    plt.show()\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal4_matplotlib_1.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\n# plan -\ndef plot(data: pd.DataFrame):\n    director_genre_counts = data.groupby('director')['listed_in'].value_counts().unstack().fillna(0)\n    plt.figure(figsize=(12, 8))\n    plt.imshow(director_genre_counts, aspect='auto', cmap='viridis')\n    plt.colorbar(label='Counts')\n    plt.xlabel('Listed_in Genre')\n    plt.ylabel('Director')\n    plt.title('What is the relationship between director and genres of movies and TV shows on Netflix?', wrap=True)\n    plt.legend(title='Genre')\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal4_matplotlib_2.png"
+                    }
+                ],
+                "seaborn": [
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef plot(data: pd.DataFrame):\n    director_genre_counts = data.groupby(['director', 'listed_in']).size().unstack(fill_value=0)\n    plt.figure(figsize=(12, 8))\n    sns.heatmap(director_genre_counts, cmap='YlGnBu', linecolor='white', linewidth=1)\n    plt.title('What is the relationship between director and genres of movies and TV shows on Netflix?', wrap=True)\n    plt.xlabel('Genre')\n    plt.ylabel('Director')\n    plt.legend(title='Count of Genres')\n    return plt\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal4_seaborn_0.png"
+                    }
+                ],
+                "plotly": [
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\n\ndef plot(data: pd.DataFrame):\n    director_genre_count = data.explode('listed_in').groupby(['director', 'listed_in']).size().reset_index(name='count')\n    fig = px.imshow(director_genre_count.pivot(index='director', columns='listed_in', values='count').fillna(0), \n                    color_continuous_scale='blues')\n    fig.update_layout(title='Relationship between Director and Genres of Movies and TV Shows on Netflix',\n                      xaxis_title='Listed in Genres',\n                      yaxis_title='Director')\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "gpt-3.5-turbo-1106_persona_goal4_plotly_0.png"
+                    }
+                ],
+                "ggplot": []
+            }
+        }
+    ]
+}

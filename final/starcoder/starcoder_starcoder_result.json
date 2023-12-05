@@ -1,0 +1,401 @@
+{
+    "lm": "bigcode/starcoder",
+    "code_lm": "bigcode/starcoder",
+    "summary": {
+        "name": "netflix_titles.csv",
+        "file_name": "netflix_titles.csv",
+        "dataset_description": "",
+        "fields": [
+            {
+                "column": "show_id",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "s6078",
+                        "s59",
+                        "s2509"
+                    ],
+                    "num_unique_values": 4500,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "type",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "TV Show",
+                        "Movie"
+                    ],
+                    "num_unique_values": 2,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "title",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "Abdo Mota",
+                        "Naruto Shippûden the Movie: The Will of Fire"
+                    ],
+                    "num_unique_values": 4500,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "director",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "R. Ellis Frazier",
+                        "Jitender Pawar"
+                    ],
+                    "num_unique_values": 2585,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "cast",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "Su-jong Choi, Hee-Ra Ha, Jay Kim, Ji-hye Wang, Shin-il Kang",
+                        "Nicolas Cage, Michael Peña, Maggie Gyllenhaal, Maria Bello, Stephen Dorff, Jay Hernandez, Michael Shannon, Frank Whaley, Jon Bernthal, Morgan Flynn, Nick Damici, Viola Davis, William Mapother"
+                    ],
+                    "num_unique_values": 3984,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "country",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "Australia, Germany",
+                        "Canada"
+                    ],
+                    "num_unique_values": 453,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "date_added",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "June 5, 2020",
+                        "August 23, 2017"
+                    ],
+                    "num_unique_values": 1394,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "release_year",
+                "properties": {
+                    "dtype": "number",
+                    "std": 8,
+                    "min": 1942,
+                    "max": 2021,
+                    "samples": [
+                        1962,
+                        1960
+                    ],
+                    "num_unique_values": 64,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "rating",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "TV-Y7-FV",
+                        "G"
+                    ],
+                    "num_unique_values": 14,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "duration",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "142 min",
+                        "121 min"
+                    ],
+                    "num_unique_values": 201,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "listed_in",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "Action & Adventure, Horror Movies, International Movies",
+                        "TV Action & Adventure, TV Comedies, TV Horror"
+                    ],
+                    "num_unique_values": 418,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "description",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "Intrepid newspaper editor Harold Evans wages an ongoing battle to expose the truth about a dangerous drug and obtain compensation for its victims.",
+                        "Living under the same roof, a group of unabashed friends wrestle with everyday issues from financial woes and shared quarters to romantic misfires."
+                    ],
+                    "num_unique_values": 4489,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            }
+        ],
+        "field_names": [
+            "show_id",
+            "type",
+            "title",
+            "director",
+            "cast",
+            "country",
+            "date_added",
+            "release_year",
+            "rating",
+            "duration",
+            "listed_in",
+            "description"
+        ]
+    },
+    "visualizations": [
+        {
+            "index": 0,
+            "question": "Which countries produce the most content available on Netflix?",
+            "visualization": "bar chart of top 10 countries",
+            "rationale": "By visualizing the top 10 countries that produce content available on Netflix, the film critic can identify the countries with the most content and recommend movies based on the current trends in production.",
+            "charts": {
+                "matplotlib": [
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    plt.title('Which actors are most likely to play a given role in a given TV Show?', wrap=True)\n    plt.bar(data['cast'].value_counts().index[:10], height=data['cast'].value_counts().values[:10])\n    plt.xticks(rotation=90)\n    plt.ylabel('Count')\n    plt.xlabel('Cast')\n    plt.axhline(y=data['cast'].value_counts().values.max(), color='red', label=\"Max Value\")\n    plt.text(s=f\"{data['cast'].value_counts().values.max():.2f}\",x=0.7,y=data['cast'].value_counts().values.max())\n    plt.legend()\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "starcoder_persona_goal0_matplotlib_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\nimport numpy as np\nimport seaborn as sns\nimport datetime\n\ndef plot(data: pd.DataFrame):\n    # only modify this section\n    plt.title('Which countries produce the most content available on Netflix?', wrap=True)\n    sns.set_theme(style=\"darkgrid\")\n    fig, ax = plt.subplots()\n    data_ = data[data['country']!= 'N/A']\n    data_['country'] = data_['country'].str.split(',', expand=True).iloc[:,1].str.strip()\n    country_count = data_['country'].value_counts()[:10]\n    country_count.plot.bar(rot=70)\n    plt.axvline(country_count.max(), color='red', linestyle='dashed', linewidth=1)\n    plt.text(country_count.max(), country_count.max()+5000, 'Max:'+ str(country_count.max()), rotation=90)\n    plt.tight_layout()\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "starcoder_persona_goal0_matplotlib_1.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\n# plan -\ndef plot(data: pd.DataFrame):\n    # only modify this section\n    plt.title('Which countries produce the most content available on Netflix?', wrap=True)\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "starcoder_persona_goal0_matplotlib_2.png"
+                    }
+                ],
+                "seaborn": [
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef plot(data: pd.DataFrame):\n\n    plt.figure(figsize=(16, 12))\n    sns.set(style='whitegrid')\n    plt.title('Which countries produce the most content available on Netflix?',wrap=True)\n    plt.xlabel('Country')\n    plt.ylabel('Number of movies produced')\n    color = sns.color_palette('tab10')\n    sns.barplot(x='country',y='release_year',data=data.sort_values(by='release_year', ascending=False).head(10),palette=color)\n    plt.xticks(rotation=90)\n    plt.axhline(data['release_year'].max(), color='r', linestyle='-', label='Max')\n    plt.axhline(data['release_year'].median(), color='g', linestyle='-', label='Median')\n    plt.axhline(data['release_year'].min(), color='b', linestyle='-', label='Min')\n    plt.legend()\n    return plt;\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "starcoder_persona_goal0_seaborn_0.png"
+                    }
+                ],
+                "plotly": [
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    fig = px.bar(data, x=\"country\", y=\"title\", color=\"country\", height=600)\n    fig.update_layout(legend_title_text='Countries')\n    fig.update_xaxes(title_text='Country')\n    fig.update_yaxes(title_text='Titles')\n    fig.update_traces(marker_color='rgb(158,202,225)', marker_line_color='rgb(8,48,107)', marker_line_width=1.5, opacity=0.6)\n    fig.update_xaxes(tickangle=-45)\n    fig.update_layout(bargap=0.2)\n    fig.update_layout(plot_bgcolor='rgb(240,240,240)')\n    fig.update_layout(\n        font=dict(\n            family=\"Courier New, monospace\",\n            size=18,\n            color=\"#7f7f7f\"\n        )\n    )\n    fig.update_layout(title_text='Top 10 Countries producing the most content on Netflix', title_x=0.5)\n    fig.update_layout(title_text='Top 10 Countries producing the most content on Netflix', title_x=0.5)\n    fig.update_yaxes(showgrid=False)\n    fig.update_xaxes(showgrid=False)\n    fig.update_layout(showlegend=False)\n    fig.update_layout(\n        autosize=False,\n        width=1000,\n        height=600,\n        margin=dict(\n            l=50,\n            r=50,\n            b=100,\n            t=100,\n            pad=4\n        )\n    )\n\n    return fig\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "starcoder_persona_goal0_plotly_0.png"
+                    }
+                ],
+                "ggplot": [
+                    {
+                        "status": true,
+                        "code": "import plotnine as p9\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\ndef plot(data: pd.DataFrame):\n    chart = (p9.ggplot(data, p9.aes(x='country', fill='country'))\n    +p9.geom_bar()\n    +p9.geom_hline(yintercept=1, linetype='dashed', size=0.5, color='black')\n    +p9.theme_minimal()\n    +p9.labs(x=\"Country\", y=\"Rating\", title=\"Country by rating\")\n    +p9.theme(axis_text_x = p9.element_text(rotation = 90))\n    +p9.theme(figure_size = (10,5)))\n    return chart\n\nchart = plot(data)",
+                        "library": "ggplot",
+                        "error": null,
+                        "image": "starcoder_persona_goal0_ggplot_0.png"
+                    }
+                ]
+            }
+        },
+        {
+            "index": 1,
+            "question": "What is the distribution of ratings for shows and movies on Netflix?",
+            "visualization": "bar chart of rating",
+            "rationale": "By visualizing the distribution of ratings, we can gain insights into the audience preferences and the types of content available on Netflix.",
+            "charts": {
+                "matplotlib": [
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\n# This code is to generate a bar chart of rating\n\ndef plot(data: pd.DataFrame):\n    # code to generate a bar chart of rating\n    data.rating.value_counts().plot(kind='bar')\n    # add a legend\n    plt.legend(bbox_to_anchor=(1.01, 1), loc='upper left')\n    # add a title\n    plt.title('What is the distribution of ratings for shows and movies on Netflix?', wrap=True)\n    # return the chart\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "starcoder_persona_goal1_matplotlib_0.png"
+                    }
+                ],
+                "seaborn": [
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef plot(data: pd.DataFrame):\n    # solution plan\n    # i.  replace field_names with the correct field\n    # ii. replace the title with a title that describes the plot\n    # iii. replace the plot type with the correct plot type\n    # iv. use seaborn.catplot() with the correct parameters to plot the data\n    # v.  make sure to add a legend\n    # vi. make sure to add the x-axis labels\n    # vii. make sure the x-axis labels are legible\n    # viii. return the plt object\n    # ix.  always add a legend with various colors where appropriate\n    # x.   make sure the x-axis labels are legible (e.g., rotate when needed)\n    plt.title('What is the distribution of ratings for shows and movies on Netflix?', wrap=True)\n    return plt;\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "starcoder_persona_goal1_seaborn_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "\n# solution plan\n# i. ..\ndef plot(data: pd.DataFrame):\n\n     # only modify this section\n    plt.title('What is the distribution of ratings for shows and movies on Netflix?', wrap=True)\n    return plt;\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "starcoder_persona_goal1_seaborn_1.png"
+                    }
+                ],
+                "plotly": [],
+                "ggplot": [
+                    {
+                        "status": true,
+                        "code": "import plotnine as p9\nimport pandas as pd\nimport numpy as np\n\n\ndef plot(data: pd.DataFrame):\n    # YOUR CODE HERE\n    chart = (\n    p9.ggplot(data, p9.aes(x='rating')) +\n    p9.geom_bar(fill = \"#00BFC4\") +\n    p9.scale_x_discrete(limits = data['rating'].unique()) +\n    p9.scale_y_continuous(labels = lambda L: [\"%d%%\" % (v * 100) for v in L]) +\n    p9.labs(title = 'What is the distribution of ratings for shows and movies on Netflix?',\n             x = 'Rating',\n             y = 'Count') +\n    p9.theme_minimal() +\n    p9.theme(axis_text_x = p9.element_text(angle = 90, size = 6, hjust = 1))\n    )\n\n    return chart;\n\nchart = plot(data)",
+                        "library": "ggplot",
+                        "error": null,
+                        "image": "starcoder_persona_goal1_ggplot_0.png"
+                    }
+                ]
+            }
+        },
+        {
+            "index": 2,
+            "question": "What is the distribution of release years for the movies and TV shows on Netflix?",
+            "visualization": "line chart of release_year",
+            "rationale": "This countplot will show the distribution of release years for the movies and TV shows on Netflix, enabling the film critic to identify trends in release years and recommend movies based on the current trends.",
+            "charts": {
+                "matplotlib": [
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\nfrom datetime import datetime\n\ndef plot(data: pd.DataFrame):\n    data['release_year'] = pd.to_datetime(data['release_year'], errors='coerce')\n    data = data[pd.notna(data['release_year'])]\n    data['release_year'] = data['release_year'].dt.strftime('%Y')\n    data['release_year'] = data['release_year'].astype('int64')\n    plt.figure(figsize=(12, 6))\n    plt.hist(data['release_year'], bins=30, color='steelblue')\n    plt.title('What is the distribution of release years for the movies and TV shows on Netflix?', wrap=True)\n    plt.axvline(data['release_year'].min(), color ='red', label = 'Min')\n    plt.axvline(data['release_year'].max(), color = 'green', label = 'Max')\n    plt.axvline(data['release_year'].median(), color = 'blue', label = 'Median')\n    plt.axvline(data['release_year'].mean(), color = 'yellow', label = 'Mean')\n    plt.legend()\n    return plt\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "starcoder_persona_goal2_matplotlib_0.png"
+                    }
+                ],
+                "seaborn": [
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef plot(data: pd.DataFrame):\n\n    # solution plan\n    # i. ..\n    sns.set_theme(style=\"darkgrid\")\n\n    ax = sns.relplot(x=\"release_year\", y=\"show_id\", hue=\"type\", size=\"rating\", sizes=(50, 200), data=data)\n\n    # ii. ..\n    plt.title('What is the distribution of release years for the movies and TV shows on Netflix?', wrap=True)\n\n\n    return plt;\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "starcoder_persona_goal2_seaborn_0.png"
+                    }
+                ],
+                "plotly": [
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\nimport pandas as pd\nimport numpy as np\nimport re\n\ndef plot(data: pd.DataFrame):\n    fig = px.line(\n        data,\n        x=\"release_year\",\n        y=\"rating\",\n        color_discrete_sequence=[\"red\"],\n        title=\"Distribution of Rating by Release Year for Movies and TV Shows on Netflix\",\n        template=\"plotly_dark\",\n    )\n    fig.update_layout(legend=dict(yanchor=\"top\", y=0.99, xanchor=\"left\", x=0.01))\n    fig.update_layout(\n        xaxis_title=\"Release Year\",\n    )\n    fig.update_xaxes(tickangle=0)\n    fig.update_layout(margin=dict(l=0, r=0, b=0, t=65))\n    fig.add_vline(x=2020, line_width=1, line_dash=\"dash\", line_color=\"red\")\n    fig.update_yaxes(range=[1, 10])\n\n    return fig\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "starcoder_persona_goal2_plotly_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\nimport pandas as pd\nimport numpy as np\nimport plotly.graph_objects as go\n\ndef plot(data: pd.DataFrame):\n    fig = px.line(data, x=\"release_year\", y=\"release_year\", color_discrete_sequence=['#17B897','#D35B07'])\n    fig.update_layout(title='What is the distribution of release years for the movies and TV shows on Netflix?',\n                      xaxis_title=\"Release Year\",\n                      yaxis_title=\"Release Year\",\n                      legend_title=\"Legend Title\",\n                      font=dict(family=\"Courier New, monospace\",\n                                size=12,\n                                color=\"#7f7f7f\"\n                      )\n    )\n    fig.update_xaxes(showgrid=False)\n    fig.update_yaxes(showgrid=False)\n    fig.add_vline(x=2020, line_width=3, line_dash=\"dash\", line_color=\"#C0C0C0\")\n    fig.add_hline(y=2020, line_width=3, line_dash=\"dash\", line_color=\"#C0C0C0\")\n    fig.update_traces(mode=\"markers+lines\")\n    fig.update_xaxes(tickangle=-45)\n    fig.update_traces(marker=dict(size=10))\n    fig.add_annotation(x=2020, y=2020, text=\"2020\", showarrow=False)\n    fig.update_xaxes(showline=True, linewidth=2, linecolor='black')\n    fig.update_yaxes(showline=True, linewidth=2, linecolor='black')\n    fig.update_xaxes(ticks=\"outside\", tickwidth=2, tickcolor='#FFFFFF', ticklen=10)\n    fig.update_yaxes(ticks=\"outside\", tickwidth=2, tickcolor='#FFFFFF', ticklen=10)\n    fig.update_xaxes(title_font=dict(family='Arial', size=20, color='black'))\n    fig.update_yaxes(title_font=dict(family='Arial', size=20, color='black'))\n    fig.update_layout(template=\"plotly_dark\")\n    fig.update_layout(legend=dict(\n        orientation=\"h\",\n        yanchor=\"bottom\",\n        y=1.02,\n        xanchor=\"right\",\n        x=1\n    ))\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "starcoder_persona_goal2_plotly_1.png"
+                    }
+                ],
+                "ggplot": [
+                    {
+                        "status": true,
+                        "code": "import plotnine as p9\nfrom matplotlib import pyplot as plt\nimport numpy as np\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n  chart = (\n        p9.ggplot(data, p9.aes(x ='release_year'))\n        + p9.geom_bar(stat = 'bin', color = \"black\")\n        + p9.labs(title = \"What is the distribution of release years for the movies and TV shows on Netflix?\",\n                 subtitle = \"Movie ratings by movie release year\")\n  )\n\n  return chart;\n\nchart = plot(data)",
+                        "library": "ggplot",
+                        "error": null,
+                        "image": "starcoder_persona_goal2_ggplot_0.png"
+                    }
+                ]
+            }
+        },
+        {
+            "index": 3,
+            "question": "What is the relationship between genres and release year?",
+            "visualization": "scatter chart of top 10 listed_in genres and release_year",
+            "rationale": "This visualization will show the correlations between genres and release year of movies and TV shows available on Netflix. It will help the film critic identify which genres in which years are more popular",
+            "charts": {
+                "matplotlib": [],
+                "seaborn": [],
+                "plotly": [
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\nimport plotly.graph_objects as go\nimport pandas as pd\nimport numpy as np\n\ndef plot(data: pd.DataFrame):\n    fig = go.Figure()\n\n    fig.add_trace(go.Scatter(\n        x=data['release_year'],\n        y=data['listed_in'],\n        mode='markers',\n        marker=dict(\n            color='rgb(158,202,225)',\n            size=10,\n            line=dict(\n                color='rgb(8,48,107)',\n                width=1\n            ),\n        )))\n\n    fig.update_layout(\n            title=go.layout.Title(\n                text=\"What is the relationship between genres and release year?\",xanchor='center',x=0.5\n            ),\n            xaxis=go.layout.XAxis(\n                title=go.layout.xaxis.Title(\n                    text=\"release_year\", standoff=0\n                )\n            ),\n            yaxis=go.layout.YAxis(\n                title=go.layout.yaxis.Title(\n                    text=\"listed_in\", standoff=0\n                )\n            )\n        )\n\n    return fig\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "starcoder_persona_goal3_plotly_0.png"
+                    }
+                ],
+                "ggplot": []
+            }
+        },
+        {
+            "index": 4,
+            "question": "What is the relationship between director and genres of movies and TV shows on Netflix?",
+            "visualization": "heatmap of directors and the listed_in genres, the colormap is decided by the counts of genres",
+            "rationale": "This heatmap will show the correlations between directors and genres of movies and TV shows available on Netflix., aiding the film critic identifying genre trends.",
+            "charts": {
+                "matplotlib": [],
+                "seaborn": [
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef plot(data: pd.DataFrame):\n    plt.title(\"What is the relationship between director and genres of movies and TV shows on Netflix?\", wrap=True)\n    ax = sns.countplot(data=data, x=\"director\", hue=\"listed_in\")\n    ax.set_xticklabels(ax.get_xticklabels(), rotation=45, horizontalalignment='right')\n    plt.axvline(x=data[\"director\"].value_counts().idxmax(), color=\"red\", label=f\"{data['director'].value_counts().max():0.2f}\")\n    plt.legend()\n    return plt;\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "starcoder_persona_goal4_seaborn_0.png"
+                    }
+                ],
+                "plotly": [
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\n\ndef plot(data):\n    fig = px.histogram(data, x=\"director\", color=\"listed_in\", marginal=\"box\", hover_data=data.columns)\n    fig.update_layout(\n        title_text=\"What is the relationship between director and genres of movies and TV shows on Netflix?\",\n        xaxis_title=\"Director\",\n        yaxis_title=\"Number of movies and TV shows\",\n        legend_title=\"Genres\",\n    )\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "starcoder_persona_goal4_plotly_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\nimport pandas as pd\n\ndef plot(data):\n    fig = px.bar(data, x=\"country\", y=\"rating\", color=\"type\", title=\"Average Rating of Movies and TV Shows on Netflix\")\n    fig.update_layout(xaxis_title=\"Countries\", yaxis_title=\"Average Rating\")\n    fig.update_layout(legend_title_text=\"Show Type\")\n    fig.update_xaxes(tickangle=45)\n    fig.update_yaxes(automargin=True)\n    fig.update_layout(margin=dict(l=0, r=0, t=50, b=0))\n    fig.update_layout(legend=dict(\n    yanchor=\"top\",\n    y=0.99,\n    xanchor=\"left\",\n    x=0.01\n))\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "starcoder_persona_goal4_plotly_1.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\n\ndef plot(data: pd.DataFrame):\n    fig = px.histogram(data, x=\"director\")\n    fig.update_layout(\n        title=\"Distribution of Directors\",\n        xaxis_title=\"Director\",\n        yaxis_title=\"Count\",\n        font=dict(\n            family=\"Courier New, monospace\",\n            size=18,\n            color=\"RebeccaPurple\"\n        )\n    )\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "starcoder_persona_goal4_plotly_2.png"
+                    }
+                ],
+                "ggplot": []
+            }
+        }
+    ]
+}

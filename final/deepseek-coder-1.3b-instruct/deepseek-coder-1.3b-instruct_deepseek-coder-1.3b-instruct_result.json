@@ -1,0 +1,497 @@
+{
+    "lm": "deepseek-ai/deepseek-coder-1.3b-instruct",
+    "code_lm": "deepseek-ai/deepseek-coder-1.3b-instruct",
+    "summary": {
+        "name": "netflix_titles.csv",
+        "file_name": "netflix_titles.csv",
+        "dataset_description": "",
+        "fields": [
+            {
+                "column": "show_id",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "s6078",
+                        "s59",
+                        "s2509"
+                    ],
+                    "num_unique_values": 4500,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "type",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "TV Show",
+                        "Movie"
+                    ],
+                    "num_unique_values": 2,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "title",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "Abdo Mota",
+                        "Naruto Shipp�den the Movie: The Will of Fire"
+                    ],
+                    "num_unique_values": 4500,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "director",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "R. Ellis Frazier",
+                        "Jitender Pawar"
+                    ],
+                    "num_unique_values": 2585,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "cast",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "Su-jong Choi, Hee-Ra Ha, Jay Kim, Ji-hye Wang, Shin-il Kang",
+                        "Nicolas Cage, Michael Peña, Maggie Gyllenhaal, Maria Bello, Stephen Dorff, Jay Hernandez, Michael Shannon, Frank Whaley, Jon Bernthal, Morgan Flynn, Nick Damici, Viola Davis, William Mapother"
+                    ],
+                    "num_unique_values": 3984,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "country",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "Australia, Germany",
+                        "Canada"
+                    ],
+                    "num_unique_values": 453,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "date_added",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "June 5, 2020",
+                        "August 23, 2017"
+                    ],
+                    "num_unique_values": 1394,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "release_year",
+                "properties": {
+                    "dtype": "number",
+                    "std": 8,
+                    "min": 1942,
+                    "max": 2021,
+                    "samples": [
+                        1962,
+                        1960
+                    ],
+                    "num_unique_values": 64,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "rating",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "TV-Y7-FV",
+                        "G"
+                    ],
+                    "num_unique_values": 14,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "duration",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "142 min",
+                        "121 min"
+                    ],
+                    "num_unique_values": 201,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "listed_in",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "Action & Adventure, Horror Movies, International Movies",
+                        "TV Action & Adventure, TV Comedies, TV Horror"
+                    ],
+                    "num_unique_values": 418,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "description",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "Intrepid newspaper editor Harold Evans wages an ongoing battle to expose the truth about a dangerous drug and obtain compensation for its victims.",
+                        "Living under the same roof, a group of unabashed friends wrestle with everyday issues from financial woes and shared quarters to romantic misfires."
+                    ],
+                    "num_unique_values": 4489,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            }
+        ],
+        "field_names": [
+            "show_id",
+            "type",
+            "title",
+            "director",
+            "cast",
+            "country",
+            "date_added",
+            "release_year",
+            "rating",
+            "duration",
+            "listed_in",
+            "description"
+        ]
+    },
+    "visualizations": [
+        {
+            "index": 0,
+            "question": "Which countries produce the most content available on Netflix?",
+            "visualization": "bar chart of top 10 countries",
+            "rationale": "By visualizing the top 10 countries that produce content available on Netflix, the film critic can identify the countries with the most content and recommend movies based on the current trends in production.",
+            "charts": {
+                "matplotlib": [
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    # Filter data to only include columns that exist in the dataset and are not NaN\n    data = data[['country', 'show_id']].dropna()\n    \n    # Count the number of shows per country\n    country_counts = data['country'].value_counts()\n    \n    # Get the top 10 countries\n    top_10_countries = country_counts[:10].index\n    \n    # Filter data to only include the top 10 countries\n    data = data[data['country'].isin(top_10_countries)]\n    \n    # Create a bar chart\n    plt.figure(figsize=(10, 6))\n    plt.bar(data['country'], data['show_id'].value_counts(), color='skyblue')\n    \n    # Add a legend\n    plt.legend(title='Count of Content on Netflix', loc='upper right')\n    \n    # Add axis labels\n    plt.xlabel('Country')\n    plt.ylabel('Number of Content')\n    \n    # Rotate x-axis labels\n    plt.xticks(rotation=90)\n    \n    plt.title('Which countries produce the most content available on Netflix?', wrap=True)\n    \n    return plt\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal0_matplotlib_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\n# plan -\ndef plot(data: pd.DataFrame):\n    # Convert date fields to date types\n    data['date_added'] = pd.to_datetime(data['date_added'], errors='coerce')\n    data = data[pd.notna(data['date_added'])]\n    data['date_added'] = data['date_added'].dt.date\n\n    # Count the number of shows per country\n    country_counts = data.groupby('country').size()\n\n    # Get the 10 countries with the most content\n    top_countries = country_counts.nlargest(10)\n\n    # Plot the data\n    plt.figure(figsize=(10, 5))\n    plt.title('Which countries produce the most content available on Netflix?', wrap=True)\n    plt.barh(top_countries.index, top_countries.values, color='skyblue')\n    plt.xlabel('Number of Shows')\n    plt.ylabel('Country')\n    plt.margins(x=0.5)\n\n    # Add legend\n    for i, v in enumerate(top_countries.values):\n        plt.text(v, i, str(v), color='black')\n\n    return plt\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal0_matplotlib_1.png"
+                    }
+                ],
+                "seaborn": [
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\n# solution plan\n# i.  Count the number of shows per country\ncountry_counts = data['country'].value_counts()\n\n# ii.  Get the top 10 countries\ntop_countries = country_counts[:10].index\n\n# iii.  Filter the data to include only the top 10 countries\ndata_top_countries = data[data['country'].isin(top_countries)]\n\n# iv.  Plot the chart\nplt.figure(figsize=(10,6))\nchart = sns.countplot(x='country', data=data_top_countries, palette='viridis')\n\n# v.  Add a legend\nplt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)\n\n# vi.  Set the title and labels\nplt.title('Top 10 Countries with Most Content on Netflix', wrap=True)\nplt.xlabel('Country')\nplt.ylabel('Number of Shows')\n\n# vii.  Rotate x-axis labels\nplt.xticks(rotation=45)\n\n# viii.  Show the plot\nplt.show()\n\ndef plot(data: pd.DataFrame):\n    plt.title('Top 10 Countries with Most Content on Netflix', wrap=True)\n    return plt;\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal0_seaborn_0.png"
+                    }
+                ],
+                "plotly": [
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\n\ndef plot(data: pd.DataFrame):\n    fig = px.bar(data.groupby('country').size().reset_index(name='count').sort_values('count', ascending=False).head(10),\n                 x='country',\n                 y='count',\n                 orientation='h',\n                 title='Top 10 countries on Netflix')\n    fig.update_layout(xaxis_title='Count',\n                      yaxis_title='Country',\n                      xaxis_tickangle=45)\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal0_plotly_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import pandas as pd\nimport plotly.express as px\n\ndef plot(data: pd.DataFrame):\n    fig = px.bar(data.groupby('country').size().nlargest(10).reset_index().rename(columns={'index':'country', 0:'count'}), x='country', y='count', title='Top 10 countries on Netflix')\n\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal0_plotly_1.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\n\ndef plot(data: pd.DataFrame):\n    fig = px.bar(data.groupby('country').size().sort_values(ascending=False).head(10).reset_index().rename(columns={'index':'country', 0:'count'}),\n                 x='count', \n                 y='country',\n                 orientation='h',\n                 title='Top 10 countries on Netflix',\n                 labels={'count':'Number of Content', 'country':''})\n    fig.update_layout(xaxis_title=\"\",\n                      yaxis_title=\"\",\n                      showlegend=False)\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal0_plotly_2.png"
+                    }
+                ],
+                "ggplot": []
+            }
+        },
+        {
+            "index": 1,
+            "question": "What is the distribution of ratings for shows and movies on Netflix?",
+            "visualization": "bar chart of rating",
+            "rationale": "By visualizing the distribution of ratings, we can gain insights into the audience preferences and the types of content available on Netflix.",
+            "charts": {
+                "matplotlib": [
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\n# plan -\ndef plot(data: pd.DataFrame):\n    # Drop rows with NaN values for 'rating'\n    data = data[pd.notna(data['rating'])]\n    \n    # Convert 'rating' to categorical data type\n    data['rating'] = data['rating'].astype('category')\n    \n    # Plot a bar chart of 'rating'\n    chart = data.groupby('rating')['show_id'].count().plot(kind='bar')\n    \n    # Add a legend\n    chart.legend(title='Rating', loc='upper right')\n    \n    # Set the title\n    plt.title('What is the distribution of ratings for shows and movies on Netflix?', wrap=True)\n    \n    # Return the plot\n    return plt\n\n# data already contains the data to be plotted. Always include this line. No additional code beyond this line. \nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal1_matplotlib_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\n# plan -\ndef plot(data: pd.DataFrame):\n    plt.figure(figsize=(10, 5))\n    plt.title('What is the distribution of ratings for shows and movies on Netflix?', wrap=True)\n\n    # Count the number of shows and movies by rating\n    ratings_count = data['rating'].value_counts()\n\n    # Plot the bar chart\n    plt.bar(ratings_count.index, ratings_count, color=['blue', 'green', 'red', 'orange', 'purple'])\n\n    # Add legend\n    plt.legend(ratings_count.index, title='Ratings', loc='upper right')\n\n    # Set x-axis labels to be legible\n    plt.xticks(rotation=90)\n\n    return plt\n\n# load data\ndata = pd.read_csv('netflix_titles.csv')\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal1_matplotlib_1.png"
+                    }
+                ],
+                "seaborn": [
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\n# solution plan\n# i.  Convert date fields to date types using data['date_added'] = pd.to_datetime(data['date_added'], errors='coerce')\n# ii. Drop the rows with NaT values data = data.dropna()\n# iii. Convert field to right time format for plotting. data['date_added'] = data['date_added'].dt.strftime('%Y-%m-%d')\n\ndef plot(data: pd.DataFrame):\n    plt.figure(figsize=(10,6))\n    sns.countplot(data=data, x='rating', palette='viridis')\n    plt.title('What is the distribution of ratings for shows and movies on Netflix?', wrap=True)\n    plt.xlabel('Rating')\n    plt.ylabel('Count')\n    return plt\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal1_seaborn_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef plot(data: pd.DataFrame):\n    plt.figure(figsize=(10,6))\n    sns.countplot(x=\"rating\", data=data, palette=\"viridis\")\n    plt.title('What is the distribution of ratings for shows and movies on Netflix?', wrap=True)\n    return plt\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal1_seaborn_1.png"
+                    }
+                ],
+                "plotly": [
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\n\ndef plot(data: pd.DataFrame):\n    fig = px.bar(data, x='rating', y='show_id', color='type', hover_data=['release_year', 'listed_in', 'duration'], title=\"Distribution of Ratings for Shows and Movies on Netflix\")\n    \n    fig.update_layout(xaxis_tickangle=-45)\n    \n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal1_plotly_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\n\ndef plot(data: pd.DataFrame):\n    fig = px.bar(data, x='rating', y='show_id', color='type', title='Distribution of Ratings for Shows and Movies on Netflix')\n    fig.update_layout(xaxis_title=\"Rating\", yaxis_title=\"Show ID\", title_x=0.5)\n    fig.show()\n    return fig\n\n# data is already loaded and available in the variable data. \n# No additional code beyond this line.\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal1_plotly_1.png"
+                    }
+                ],
+                "ggplot": [
+                    {
+                        "status": true,
+                        "code": "import plotnine as p9\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    chart = (p9.ggplot(data, p9.aes(x='rating', fill='type')) + \n            p9.geom_bar(position='dodge') + \n            p9.xlab('Rating') + \n            p9.ylab('Count') + \n            p9.theme(axis_text_x=p9.element_text(angle=45, hjust=1)) + \n            p9.scale_fill_manual(values=['#FF6666', '#228B22']) + \n            p9.labs(title='Distribution of Ratings for Shows and Movies on Netflix') + \n            p9.theme(plot_title=p9.element_text(size=16, face=\"bold\")))\n\n    return chart\n\nchart = plot(data)",
+                        "library": "ggplot",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal1_ggplot_0.png"
+                    }
+                ]
+            }
+        },
+        {
+            "index": 2,
+            "question": "What is the distribution of release years for the movies and TV shows on Netflix?",
+            "visualization": "line chart of release_year",
+            "rationale": "This countplot will show the distribution of release years for the movies and TV shows on Netflix, enabling the film critic to identify trends in release years and recommend movies based on the current trends.",
+            "charts": {
+                "matplotlib": [
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\nimport seaborn as sns\n\ndef plot(data: pd.DataFrame):\n    # Check if 'release_year' column is a date column\n    if 'release_year' in data.columns:\n        # Convert 'release_year' to datetime and drop NA values\n        data['release_year'] = pd.to_datetime(data['release_year'], errors='coerce')\n        data = data.dropna(subset=['release_year'])\n    \n    # Plotting the distribution of 'release_year'\n    plt.figure(figsize=(10, 6))\n    sns.histplot(data['release_year'], bins=50, kde=True, color='blue')\n    plt.title('Distribution of Release Years', wrap=True)\n    plt.xlabel('Release Year')\n    plt.ylabel('Frequency')\n    \n    return plt\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal2_matplotlib_0.png"
+                    }
+                ],
+                "seaborn": [
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef plot(data: pd.DataFrame):\n    plt.figure(figsize=(10,6))\n    plt.title('What is the distribution of release years for the movies and TV shows on Netflix?', wrap=True)\n    \n    sns.lineplot(x='release_year', y='type', hue='type', data=data)\n    plt.xlabel(\"Release Year\", rotation=90)\n    \n    plt.legend(title=\"Type\", title_fontsize='13', loc='upper right')\n    plt.show()\n    return plt\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal2_seaborn_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef plot(data: pd.DataFrame):\n    plt.figure(figsize=(10,6))\n    sns.lineplot(x='release_year', y='duration', hue='type', data=data, palette='viridis')\n    plt.title('What is the distribution of release years for the movies and TV shows on Netflix?', wrap=True)\n    plt.xlabel('Release Year', rotation=45)\n    plt.ylabel('Duration', rotation=0)\n    plt.legend(title='Type')\n    return plt\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal2_seaborn_1.png"
+                    }
+                ],
+                "plotly": [
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\n\ndef plot(data: pd.DataFrame):\n    fig = px.line(data, x='release_year', y='title', color='type',\n                  labels={'release_year': 'Release Year', 'title': 'Title', 'type': 'Type'})\n    fig.show()\n\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal2_plotly_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\n\ndef plot(data: pd.DataFrame):\n    fig = px.line(data, x='release_year', y='release_year', color_discrete_sequence=px.colors.qualitative.Vivid)\n\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal2_plotly_1.png"
+                    }
+                ],
+                "ggplot": [
+                    {
+                        "status": true,
+                        "code": "import plotnine as p9\n\ndef plot(data: pd.DataFrame):\n    chart = (p9.ggplot(data, p9.aes(x='release_year', y='type')) + \n            p9.geom_point() + \n            p9.facet_wrap('~listed_in') + \n            p9.xlab('Release Year') + \n            p9.ylab('Movie or TV Show') + \n            p9.theme_minimal())\n\n    return chart\n\nchart = plot(data)",
+                        "library": "ggplot",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal2_ggplot_0.png"
+                    }
+                ]
+            }
+        },
+        {
+            "index": 3,
+            "question": "What is the relationship between genres and release year?",
+            "visualization": "scatter chart of top 10 listed_in genres and release_year",
+            "rationale": "This visualization will show the correlations between genres and release year of movies and TV shows available on Netflix. It will help the film critic identify which genres in which years are more popular",
+            "charts": {
+                "matplotlib": [
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\n# plan -\ndef plot(data: pd.DataFrame):\n    # Filtering data for only the fields that we need\n    data = data[['listed_in', 'release_year']]\n\n    # Grouping by 'listed_in' and calculating the mean 'release_year' for each group\n    data_grouped = data.groupby('listed_in').release_year.mean().reset_index()\n\n    # Sorting by 'release_year' in descending order\n    data_grouped = data_grouped.sort_values('release_year', ascending=False)\n\n    # Plotting\n    plt.figure(figsize=(10,6))\n    plt.title('What is the relationship between genres and release year?', wrap=True)\n    plt.xlabel('Genres')\n    plt.ylabel('Average Release Year')\n    plt.barh(data_grouped['listed_in'], data_grouped['release_year'], color='skyblue')\n    plt.gca().invert_yaxis()\n\n    # Adding legend\n    plt.legend(['Average Release Year'], loc='upper right')\n\n    return plt\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal3_matplotlib_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\nimport seaborn as sns\n\ndef plot(data: pd.DataFrame):\n    # Filter data to only include the columns that we want to plot\n    data_filtered = data[['listed_in', 'release_year']].dropna()\n\n    # Convert the 'listed_in' column to a category data type\n    data_filtered['listed_in'] = data_filtered['listed_in'].astype('category')\n\n    # Create a bar plot\n    plt.figure(figsize=(10,6))\n    sns.barplot(data=data_filtered, x='release_year', y='listed_in', ci=None)\n\n    # Add a legend\n    plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)\n\n    # Set the title\n    plt.title('What is the relationship between genres and release year?')\n\n    # Return the plot object\n    return plt\n\n# Load the data\ndata = pd.read_csv('netflix_titles.csv')\n\n# Call the plot function and save the plot object\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal3_matplotlib_1.png"
+                    }
+                ],
+                "seaborn": [
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\n# solution plan\n# i.  Convert date fields to date types using data[''] = pd.to_datetime(data[<field>], errors='coerce')\n# ii. Drop the rows with NaT values data = data[pd.notna(data[<field>])]\n# iii. Convert field to right time format for plotting.\n\ndef plot(data: pd.DataFrame):\n    plt.title('What is the relationship between genres and release year?', wrap=True)\n\n    # i.  Plot genres on x-axis and release_year on y-axis\n    sns.scatterplot(data=data, x='listed_in', y='release_year')\n\n    # ii. Add a legend with various colors where appropriate\n    plt.legend(title='Genres', title_fontsize='12', fontsize='12', loc='upper right')\n\n    return plt\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal3_seaborn_0.png"
+                    }
+                ],
+                "plotly": [
+                    {
+                        "status": true,
+                        "code": "import pandas as pd\nimport plotly.express as px\n\ndef plot(data: pd.DataFrame):\n    fig = px.scatter(\n        data,\n        x='release_year',\n        y='listed_in',\n        color='listed_in',\n        hover_data=['title'],\n        title='Relationship between genres and release year'\n    )\n    fig.update_layout(xaxis_title='Release Year', yaxis_title='Listed In', title=dict(x=0.5))\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal3_plotly_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\n\ndef plot(data: pd.DataFrame):\n    fig = px.scatter(\n        data_frame=data,\n        x='release_year',\n        y='listed_in',\n        color='listed_in',\n        hover_data=['title']\n    )\n\n    return fig\n\ndata = pd.read_csv('netflix_titles.csv')\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal3_plotly_1.png"
+                    }
+                ],
+                "ggplot": [
+                    {
+                        "status": true,
+                        "code": "import plotnine as p9\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    chart = (p9.ggplot(data, p9.aes(x='release_year', y='listed_in', fill='listed_in'))\n            + p9.geom_boxplot()\n            + p9.xlab(\"Release Year\")\n            + p9.ylab(\"Listed In Genre\")\n            + p9.theme_minimal())\n\n    return chart\n\nchart = plot(data)",
+                        "library": "ggplot",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal3_ggplot_0.png"
+                    }
+                ]
+            }
+        },
+        {
+            "index": 4,
+            "question": "What is the relationship between director and genres of movies and TV shows on Netflix?",
+            "visualization": "heatmap of directors and the listed_in genres, the colormap is decided by the counts of genres",
+            "rationale": "This heatmap will show the correlations between directors and genres of movies and TV shows available on Netflix., aiding the film critic identifying genre trends.",
+            "charts": {
+                "matplotlib": [
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\n# plan -\ndef plot(data: pd.DataFrame):\n    # convert date fields to date types\n    data['date_added'] = pd.to_datetime(data['date_added'], errors='coerce')\n    data = data.dropna(subset=['date_added'])\n    \n    # convert field to right time format for plotting\n    data['release_year'] = data['release_year'].astype(str)\n    \n    # create a pivot table to get the count of genres\n    genre_counts = data.pivot_table(values='show_id', index='director', columns='listed_in', aggfunc='count', fill_value=0)\n    \n    # create a heatmap of directors and the listed_in genres\n    plt.title('What is the relationship between director and genres of movies and TV shows on Netflix?', wrap=True)\n    heatmap = plt.pcolor(genre_counts)\n    \n    # add legend\n    plt.colorbar(heatmap)\n    \n    return plt\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal4_matplotlib_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\nimport seaborn as sns\n\ndef plot(data: pd.DataFrame):\n    # Creating a pivot table for directors and genres\n    pivot_table = data[['director', 'listed_in']].value_counts().unstack().fillna(0)\n\n    # Creating a heatmap\n    sns.heatmap(pivot_table, cmap='viridis')\n    \n    # Adding title and labels\n    plt.title('What is the relationship between director and genres of movies and TV shows on Netflix?', wrap=True)\n    plt.xlabel('Genres')\n    plt.ylabel('Directors')\n\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal4_matplotlib_1.png"
+                    }
+                ],
+                "seaborn": [
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\n# solution plan\n# i. Convert date fields to date types using data['date_added'] = pd.to_datetime(data['date_added'], errors='coerce')\n# ii. Drop the rows with NaT values data = data.dropna()\n# iii. Convert field to right time format for plotting. \n\ndef plot(data: pd.DataFrame):\n    plt.figure(figsize=(10,6))\n    sns.heatmap(data[['director', 'listed_in']].value_counts().unstack(), cmap='viridis')\n    plt.title('What is the relationship between director and genres of movies and TV shows on Netflix?', wrap=True)\n    plt.xlabel('Genres')\n    plt.ylabel('Directors')\n    return plt;\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal4_seaborn_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef plot(data: pd.DataFrame):\n    # Create a count plot of director and listed_in genres\n    plt.figure(figsize=(10,6))\n    sns.countplot(x='director', hue='listed_in', data=data, palette='viridis')\n    plt.title('What is the relationship between director and genres of movies and TV shows on Netflix?', wrap=True)\n    return plt;\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal4_seaborn_1.png"
+                    }
+                ],
+                "plotly": [
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\n\ndef plot(data: pd.DataFrame):\n    fig = px.scatter_geo(data, locations=\"cast\",\n                        hover_name=\"title\",\n                        color_discrete_sequence=[\"red\", \"blue\"],\n                        projection=\"natural earth\",\n                        title=\"Relationship between director and genres of movies and TV shows on Netflix\",\n                        hover_data=['release_year', 'rating', 'listed_in', 'duration'],\n                        labels={'cast':'Director','release_year':'Release Year','rating':'Rating','listed_in':'Genre','duration':'Duration'})\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal4_plotly_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n    fig = px.scatter_geo(data, locations=\"cast\", hover_name=\"title\", color=\"director\",\n                         projection=\"natural earth\", title=\"Director and Genre of Movies and TV Shows\")\n    \n    fig.show()\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal4_plotly_1.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import plotly.express as px\n\ndef plot(data: pd.DataFrame):\n    fig = px.line(data, x=\"director\", y=\"listed_in\", color=\"director\", title=\"Director and Listed In Genres of Movies and TV Shows on Netflix\")\n\n    fig.update_layout(xaxis_title=\"Director\", yaxis_title=\"Listed In Genres\",\n                      title_x=0.5, legend=dict(title=\"Director\"))\n\n    fig.show()\n\n    return fig\n\nchart = plot(data)",
+                        "library": "plotly",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal4_plotly_2.png"
+                    }
+                ],
+                "ggplot": [
+                    {
+                        "status": true,
+                        "code": "import plotnine as p9\n\ndef plot(data: pd.DataFrame):\n    chart = (p9.ggplot(data, p9.aes(x='director', y='listed_in', fill='type')) +\n            p9.geom_tile(position='dodge'))\n\n    return chart\n\nchart = plot(data)",
+                        "library": "ggplot",
+                        "error": null,
+                        "image": "deepseek-coder-1.3b-instruct_persona_goal4_ggplot_0.png"
+                    }
+                ]
+            }
+        }
+    ]
+}

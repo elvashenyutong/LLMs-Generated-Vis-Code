@@ -1,0 +1,309 @@
+{
+    "lm": "mrm8488/llama-2-coder-7b",
+    "code_lm": "mrm8488/llama-2-coder-7b",
+    "summary": {
+        "name": "netflix_titles.csv",
+        "file_name": "netflix_titles.csv",
+        "dataset_description": "",
+        "fields": [
+            {
+                "column": "show_id",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "s6078",
+                        "s59",
+                        "s2509"
+                    ],
+                    "num_unique_values": 4500,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "type",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "TV Show",
+                        "Movie"
+                    ],
+                    "num_unique_values": 2,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "title",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "Abdo Mota",
+                        "Naruto Shippûden the Movie: The Will of Fire"
+                    ],
+                    "num_unique_values": 4500,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "director",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "R. Ellis Frazier",
+                        "Jitender Pawar"
+                    ],
+                    "num_unique_values": 2585,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "cast",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "Su-jong Choi, Hee-Ra Ha, Jay Kim, Ji-hye Wang, Shin-il Kang",
+                        "Nicolas Cage, Michael Peña, Maggie Gyllenhaal, Maria Bello, Stephen Dorff, Jay Hernandez, Michael Shannon, Frank Whaley, Jon Bernthal, Morgan Flynn, Nick Damici, Viola Davis, William Mapother"
+                    ],
+                    "num_unique_values": 3984,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "country",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "Australia, Germany",
+                        "Canada"
+                    ],
+                    "num_unique_values": 453,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "date_added",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "June 5, 2020",
+                        "August 23, 2017"
+                    ],
+                    "num_unique_values": 1394,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "release_year",
+                "properties": {
+                    "dtype": "number",
+                    "std": 8,
+                    "min": 1942,
+                    "max": 2021,
+                    "samples": [
+                        1962,
+                        1960
+                    ],
+                    "num_unique_values": 64,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "rating",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "TV-Y7-FV",
+                        "G"
+                    ],
+                    "num_unique_values": 14,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "duration",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "142 min",
+                        "121 min"
+                    ],
+                    "num_unique_values": 201,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "listed_in",
+                "properties": {
+                    "dtype": "category",
+                    "samples": [
+                        "Action & Adventure, Horror Movies, International Movies",
+                        "TV Action & Adventure, TV Comedies, TV Horror"
+                    ],
+                    "num_unique_values": 418,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            },
+            {
+                "column": "description",
+                "properties": {
+                    "dtype": "string",
+                    "samples": [
+                        "Intrepid newspaper editor Harold Evans wages an ongoing battle to expose the truth about a dangerous drug and obtain compensation for its victims.",
+                        "Living under the same roof, a group of unabashed friends wrestle with everyday issues from financial woes and shared quarters to romantic misfires."
+                    ],
+                    "num_unique_values": 4489,
+                    "semantic_type": "",
+                    "description": ""
+                }
+            }
+        ],
+        "field_names": [
+            "show_id",
+            "type",
+            "title",
+            "director",
+            "cast",
+            "country",
+            "date_added",
+            "release_year",
+            "rating",
+            "duration",
+            "listed_in",
+            "description"
+        ]
+    },
+    "visualizations": [
+        {
+            "index": 0,
+            "question": "Which countries produce the most content available on Netflix?",
+            "visualization": "bar chart of top 10 countries",
+            "rationale": "By visualizing the top 10 countries that produce content available on Netflix, the film critic can identify the countries with the most content and recommend movies based on the current trends in production.",
+            "charts": {
+                "matplotlib": [
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\n# plan -\ndef plot(data: pd.DataFrame):\n    plt.title('Which countries produce the most content available on Netflix?', wrap=True)\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "llama-2-coder-7b_persona_goal0_matplotlib_0.png"
+                    }
+                ],
+                "seaborn": [],
+                "plotly": [],
+                "ggplot": []
+            }
+        },
+        {
+            "index": 1,
+            "question": "What is the distribution of ratings for shows and movies on Netflix?",
+            "visualization": "bar chart of rating",
+            "rationale": "By visualizing the distribution of ratings, we can gain insights into the audience preferences and the types of content available on Netflix.",
+            "charts": {
+                "matplotlib": [],
+                "seaborn": [
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\n# solution plan\n# i.  ..\n\ndef plot(data: pd.DataFrame):\n\n    plt.title('What is the distribution of ratings for shows and movies on Netflix?', wrap=True)\n    return plt;\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "llama-2-coder-7b_persona_goal1_seaborn_0.png"
+                    }
+                ],
+                "plotly": [],
+                "ggplot": []
+            }
+        },
+        {
+            "index": 2,
+            "question": "What is the distribution of release years for the movies and TV shows on Netflix?",
+            "visualization": "line chart of release_year",
+            "rationale": "This countplot will show the distribution of release years for the movies and TV shows on Netflix, enabling the film critic to identify trends in release years and recommend movies based on the current trends.",
+            "charts": {
+                "matplotlib": [
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\n# plan -\ndef plot(data: pd.DataFrame):\n    plt.title('What is the distribution of release years for the movies and TV shows on Netflix?', wrap=True)\n    plt.plot(data['release_year']) # plot the release_year\n    plt.xlabel('Release Year')\n    plt.ylabel('Release Year')\n    plt.legend(['Movie', 'TV Show'])\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "llama-2-coder-7b_persona_goal2_matplotlib_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\n# plan -\ndef plot(data: pd.DataFrame):\n    plt.title('What is the distribution of release years for the movies and TV shows on Netflix?', wrap=True)\n    plt.xlabel('Release Year')\n    plt.ylabel('Count')\n    plt.xticks(rotation=45)\n    plt.legend(['Movie', 'TV Show'])\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "llama-2-coder-7b_persona_goal2_matplotlib_1.png"
+                    }
+                ],
+                "seaborn": [
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\n# solution plan\n# i.  ..\ndef plot(data: pd.DataFrame):\n    plt.title('What is the distribution of release years for the movies and TV shows on Netflix?', wrap=True)\n    return plt;\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "llama-2-coder-7b_persona_goal2_seaborn_0.png"
+                    }
+                ],
+                "plotly": [],
+                "ggplot": []
+            }
+        },
+        {
+            "index": 3,
+            "question": "What is the relationship between genres and release year?",
+            "visualization": "scatter chart of top 10 listed_in genres and release_year",
+            "rationale": "This visualization will show the correlations between genres and release year of movies and TV shows available on Netflix. It will help the film critic identify which genres in which years are more popular",
+            "charts": {
+                "matplotlib": [
+                    {
+                        "status": true,
+                        "code": "import matplotlib.pyplot as plt\nimport pandas as pd\n\n# plan -\ndef plot(data: pd.DataFrame):\n    plt.title('What is the relationship between genres and release year?', wrap=True)\n    return plt;\n\nchart = plot(data)",
+                        "library": "matplotlib",
+                        "error": null,
+                        "image": "llama-2-coder-7b_persona_goal3_matplotlib_0.png"
+                    }
+                ],
+                "seaborn": [
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\n# solution plan\n# i.  ..\ndef plot(data: pd.DataFrame):\n    fig, ax = plt.subplots(figsize=(12, 8))\n    sns.scatterplot(x='listed_in', y='release_year', data=data, hue='type')\n    ax.set_xlabel('Listed In', fontsize=18)\n    ax.set_ylabel('Release Year', fontsize=18)\n    plt.title('What is the relationship between genres and release year?', wrap=True)\n    return plt;\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "llama-2-coder-7b_persona_goal3_seaborn_0.png"
+                    },
+                    {
+                        "status": true,
+                        "code": "import seaborn as sns\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\ndef plot(data: pd.DataFrame):\n    plt.title('What is the relationship between genres and release year?', wrap=True)\n    sns.scatterplot(x='listed_in', y='release_year', hue='type', data=data)\n    plt.show()\n\nchart = plot(data)",
+                        "library": "seaborn",
+                        "error": null,
+                        "image": "llama-2-coder-7b_persona_goal3_seaborn_1.png"
+                    }
+                ],
+                "plotly": [],
+                "ggplot": []
+            }
+        },
+        {
+            "index": 4,
+            "question": "What is the relationship between director and genres of movies and TV shows on Netflix?",
+            "visualization": "heatmap of directors and the listed_in genres, the colormap is decided by the counts of genres",
+            "rationale": "This heatmap will show the correlations between directors and genres of movies and TV shows available on Netflix., aiding the film critic identifying genre trends.",
+            "charts": {
+                "matplotlib": [],
+                "seaborn": [],
+                "plotly": [],
+                "ggplot": []
+            }
+        }
+    ]
+}
