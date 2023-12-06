@@ -26,7 +26,7 @@ https://llms-generated-vis-code-3r8paqrspbzpoykzhke9cn.streamlit.app/
 - [inference_LLM.py](https://github.com/elvashenyutong/LLMs-Generated-Vis-Code/blob/main/inference_LLMs.py): This involves summarizing a dataset and generating script pieces for data visualization.
 
 ## How to Run
-- Clone the repository: git clone https://github.com/elvashenyutong/LLMs-Generated-Vis-Code
+- Clone the repository: `git clone https://github.com/elvashenyutong/LLMs-Generated-Vis-Code`
 - Navigate to the directory: cd LLMs-Generated-Vis-Code
 - Or download the package of the code
 - Install dependencies: `pip install streamlit` or `pip install -r requirements.txt` for full test
