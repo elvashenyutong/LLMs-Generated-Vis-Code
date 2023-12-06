@@ -1,7 +1,7 @@
 # LLMs-Generated-Vis-Code
 This repository contains code and data utilized for automatic data visualization using Large Language Models (LLMs) such as gpt-3.5-turbo-1106, llama-2-coder-7b, starcoder, and deepseek-coder-1.3b-instruct.
 
-##Introduction
+## Introduction
 The objective of this project is to assess the capability of LLMs in generating visualizations from provided datasets. We evaluate their performance in adhering to instructions, generating diverse visualizations, and effectively developing code and chart images using various visualization libraries.
 
 ## Usage
