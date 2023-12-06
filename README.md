@@ -22,8 +22,8 @@ https://llms-generated-vis-code-3r8paqrspbzpoykzhke9cn.streamlit.app/
  - View generated chart images and corresponding code snippets for each Language Model.
 
 ## Files Description
-[app.py](https://github.com/elvashenyutong/LLMs-Generated-Vis-Code/blob/main/app.py): Streamlit app for visualizing the results.
-[inference_LLM.py](https://github.com/elvashenyutong/LLMs-Generated-Vis-Code/blob/main/inference_LLMs.py): This involves summarizing a dataset and generating script pieces for data visualization.
+- [app.py](https://github.com/elvashenyutong/LLMs-Generated-Vis-Code/blob/main/app.py): Streamlit app for visualizing the results.
+- [inference_LLM.py](https://github.com/elvashenyutong/LLMs-Generated-Vis-Code/blob/main/inference_LLMs.py): This involves summarizing a dataset and generating script pieces for data visualization.
 
 ## How to Run
 - Clone the repository: git clone https://github.com/elvashenyutong/LLMs-Generated-Vis-Code
@@ -39,7 +39,7 @@ https://llms-generated-vis-code-3r8paqrspbzpoykzhke9cn.streamlit.app/
 ## Dependencies
 Python 3.10+
 Streamlit
-Other dependencies are listed in [requirements.txt] (https://github.com/elvashenyutong/LLMs-Generated-Vis-Code/blob/main/requirements.py)
+Other dependencies are listed in [requirements.txt](https://github.com/elvashenyutong/LLMs-Generated-Vis-Code/blob/main/requirements.py)
 
 ## Acknowledgments
 The project utilized data and models from various sources, acknowledging their contributions.
